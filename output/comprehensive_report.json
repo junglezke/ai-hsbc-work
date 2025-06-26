@@ -1,0 +1,84 @@
+{
+  "project_overview": {
+    "repository_path": "..\\flask-main",
+    "analysis_timestamp": "2025-06-26T14:56:01.664443",
+    "total_files": 234,
+    "file_types": {
+      "": 7,
+      ".yaml": 6,
+      ".rst": 78,
+      ".txt": 10,
+      ".toml": 5,
+      ".md": 6,
+      ".lock": 1,
+      ".json": 2,
+      ".sh": 1,
+      ".yml": 1,
+      ".py": 83,
+      ".bat": 1,
+      ".png": 5,
+      ".svg": 3,
+      ".html": 20,
+      ".sql": 2,
+      ".css": 2,
+      ".typed": 1
+    },
+    "architecture_patterns": {
+      "mvc": false,
+      "microservices": false,
+      "layered": false,
+      "event_driven": false,
+      "rest_api": false
+    },
+    "technologies": [
+      "Python"
+    ]
+  },
+  "data_generation_summary": {
+    "qa_pairs_generated": 50,
+    "design_proposals_generated": 8,
+    "total_training_items": 58
+  },
+  "quality_metrics": {
+    "data_diversity_score": 1.0,
+    "code_coverage_score": 0.051,
+    "reasoning_quality_score": 0.316,
+    "metadata_completeness": 1.0,
+    "data_representativeness_score": 0.56,
+    "metric_definitions": {
+      "data_diversity_score": "基于香农熵的信息论指标，评估问题类型、复杂度、视角分布均匀性(0-1)",
+      "code_coverage_score": "类似测试覆盖率概念，基于代码文件、函数、类的覆盖程度(0-1)",
+      "reasoning_quality_score": "参考Chain-of-Thought评估框架，综合逻辑结构、内容相关性、深度分析(0-1)",
+      "metadata_completeness": "基于数据质量评估标准，计算必要元数据字段完整程度(0-1)",
+      "data_representativeness_score": "基于统计学代表性抽样原理，评估生成数据与目标代码库实际特征的一致性(0-1)"
+    },
+    "evaluation_methodology": {
+      "diversity_method": "Shannon Entropy (Information Theory)",
+      "coverage_method": "Code Coverage Analysis (Software Testing)",
+      "reasoning_method": "Custom Framework inspired by Chain-of-Thought Evaluation",
+      "metadata_method": "Data Quality Assessment Standards",
+      "representativeness_method": "Statistical Representativeness Analysis",
+      "limitations": [
+        "推理质量评估为自定义方法，未经大规模验证",
+        "缺乏与标准基准数据集的对比",
+        "关键词匹配方法相对简单，不如语义理解准确",
+        "权重设置基于经验，缺乏理论依据"
+      ],
+      "future_improvements": [
+        "引入预训练语言模型进行语义相似度计算",
+        "与GSM8K、StrategyQA等标准数据集对比",
+        "使用人工评估验证自动化评估的准确性",
+        "基于大规模实验数据优化权重设置"
+      ]
+    }
+  },
+  "recommendations": [
+    "考虑采用更清晰的架构模式"
+  ],
+  "next_steps": [
+    "使用生成的training_dataset.jsonl训练您的模型",
+    "根据项目特点调整问答对数量和设计方案数量",
+    "考虑添加更多自定义需求以获得更针对性的设计方案",
+    "定期更新训练数据以反映代码库的变化"
+  ]
+}
