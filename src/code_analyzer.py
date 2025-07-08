@@ -17,7 +17,7 @@ class CodeAnalyzer:
         
     def analyze_repository(self) -> Dict[str, Any]:
         """分析整个代码仓"""
-        print("🔍 开始分析代码仓库...")
+        print("开始分析代码仓库...")
         
         analysis_result = {
             'repo_structure': self._analyze_structure(),
@@ -28,7 +28,7 @@ class CodeAnalyzer:
             'documentation_analysis': self._analyze_documentation()
         }
         
-        print(f"✅ 分析完成: {analysis_result['repo_structure']['total_files']} 个文件")
+        print(f"分析完成: {analysis_result['repo_structure']['total_files']} 个文件")
         return analysis_result
     
     def _analyze_structure(self) -> Dict[str, Any]:
@@ -73,7 +73,7 @@ class CodeAnalyzer:
                         if analysis:
                             file_analysis[str(rel_path)] = analysis
                     except Exception as e:
-                        print(f"⚠️ 分析文件 {file_path} 时出错: {e}")
+                        print(f" 分析文件 {file_path} 时出错: {e}")
                         
         return file_analysis
     
@@ -105,7 +105,7 @@ class CodeAnalyzer:
             return analysis
             
         except Exception as e:
-            print(f"⚠️ 无法读取文件 {file_path}: {e}")
+            print(f" 无法读取文件 {file_path}: {e}")
             return None
     
     def _analyze_python_file(self, content: str) -> Dict[str, Any]:
@@ -146,7 +146,7 @@ class CodeAnalyzer:
                             result['imports'].append(f"{module}.{alias.name}")
                             
         except SyntaxError as e:
-            print(f"⚠️ Python语法错误: {e}")
+            print(f"⚠Python语法错误: {e}")
             return result
             
         return result
