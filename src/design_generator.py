@@ -48,7 +48,7 @@ class DesignGenerator:
     def generate_design_proposals(self, code_analysis: Dict[str, Any], 
                                 requirements: List[str], num_proposals: int = 10) -> List[Dict[str, Any]]:
         """生成设计方案"""
-        print(f"🏗️ 使用Claude生成 {num_proposals} 个设计方案...")
+        print(f"使用Claude生成 {num_proposals} 个设计方案...")
         
         proposals = []
         
@@ -278,7 +278,7 @@ JSON格式（请确保内容详尽）:
                 
                 # 验证reasoning质量
                 if not self._validate_design_reasoning_quality(proposal_result):
-                    print(f"⚠️ {area} 增强方案的reasoning质量不达标，跳过")
+                    print(f" {area} 增强方案的reasoning质量不达标，跳过")
                     return None
                 
                 return proposal_result
