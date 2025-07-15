@@ -64,8 +64,8 @@ class QAGenerator:
     
     def generate_qa_pairs(self, code_analysis: Dict[str, Any], num_pairs: int = 50) -> List[Dict[str, Any]]:
         """生成问答对"""
-        print(f"🤖 使用Claude生成 {num_pairs} 个问答对...")
-        print(f"🔍 DEBUG: 开始执行generate_qa_pairs方法")
+        print(f"使用Claude生成 {num_pairs} 个问答对...")
+        print(f"DEBUG: 开始执行generate_qa_pairs方法")
         
         qa_pairs = []
         
@@ -76,26 +76,26 @@ class QAGenerator:
             self._generate_business_rule_qa,
             self._generate_architecture_qa,
         ]
-        print(f"🔍 DEBUG: 已定义 {len(generators)} 个生成器")
+        print(f"DEBUG: 已定义 {len(generators)} 个生成器")
         
         # 每个生成器分配更多数量，确保总数足够
         pairs_per_generator = max((num_pairs * 2) // len(generators), 2)
-        print(f"🎯 每个生成器目标: {pairs_per_generator} 个QA")
-        print(f"🔍 DEBUG: 计算完成，开始循环执行生成器")
+        print(f"每个生成器目标: {pairs_per_generator} 个QA")
+        print(f"DEBUG: 计算完成，开始循环执行生成器")
         
         for generator in generators:
             try:
                 pairs = generator(code_analysis, pairs_per_generator)
                 if pairs:
                     qa_pairs.extend(pairs)
-                    print(f"✅ {generator.__name__} 生成了 {len(pairs)} 个QA")
+                    print(f"{generator.__name__} 生成了 {len(pairs)} 个QA")
                 else:
-                    print(f"⚠️ {generator.__name__} 没有生成任何QA")
+                    print(f"{generator.__name__} 没有生成任何QA")
             except Exception as e:
-                print(f"⚠️ 生成器 {generator.__name__} 出错: {e}")
+                print(f"生成器 {generator.__name__} 出错: {e}")
                 continue
         
-        print(f"📊 总共生成了 {len(qa_pairs)} 个QA，目标: {num_pairs}")
+        print(f"总共生成了 {len(qa_pairs)} 个QA，目标: {num_pairs}")
         
         # 确保多样性并保证数量
         qa_pairs = self._ensure_diversity(qa_pairs)
@@ -103,12 +103,12 @@ class QAGenerator:
         # 如果数量不足，尝试从函数生成器补充
         if len(qa_pairs) < num_pairs:
             additional_needed = num_pairs - len(qa_pairs)
-            print(f"⚠️ 数量不足，尝试补充 {additional_needed} 个QA")
+            print(f"数量不足，尝试补充 {additional_needed} 个QA")
             try:
                 additional_pairs = self._generate_function_qa(code_analysis, additional_needed)
                 qa_pairs.extend(additional_pairs)
             except Exception as e:
-                print(f"⚠️ 补充生成失败: {e}")
+                print(f"补充生成失败: {e}")
         
         return qa_pairs[:num_pairs]
     
@@ -136,7 +136,7 @@ class QAGenerator:
                 if qa_pair:
                     qa_pairs.append(qa_pair)
             except Exception as e:
-                print(f"⚠️ 为函数 {func_info.get('name', 'unknown')} 生成QA时出错: {e}")
+                print(f"为函数 {func_info.get('name', 'unknown')} 生成QA时出错: {e}")
                 continue
         
         return qa_pairs
@@ -213,7 +213,7 @@ reasoning_trace必须遵循以下结构化推理框架：
 注意：reasoning_trace必须具有逻辑连贯性，体现专家级的技术洞察力。只返回JSON，不要包含解释文字或markdown格式。"""
 
         try:
-            print(f"🤖 正在为函数 {function_name} 调用Claude API...")
+            print(f"正在为函数 {function_name} 调用Claude API...")
             response = self.client.messages.create(
                 model=self.model,
                 max_tokens=1000,
@@ -226,7 +226,7 @@ reasoning_trace必须遵循以下结构化推理框架：
             )
             
             content = response.content[0].text
-            print(f"📄 Claude返回内容: {content[:200]}...")
+            print(f"Claude返回内容: {content[:200]}...")
             
             # 清理和提取JSON
             content = self._extract_json_from_response(content)
@@ -253,16 +253,16 @@ reasoning_trace必须遵循以下结构化推理框架：
                 
                 # 验证reasoning质量
                 if not self._validate_reasoning_quality(qa_result):
-                    print(f"⚠️ 函数 {function_name} 的reasoning质量不达标，跳过")
+                    print(f"函数 {function_name} 的reasoning质量不达标，跳过")
                     return None
                 
                 return qa_result
             except json.JSONDecodeError:
-                print(f"⚠️ Claude返回的内容不是有效JSON: {content[:100]}...")
+                print(f"Claude返回的内容不是有效JSON: {content[:100]}...")
                 return None
                 
         except Exception as e:
-            print(f"⚠️ Claude API调用失败: {e}")
+            print(f"Claude API调用失败: {e}")
             return None
     
     def _generate_class_qa(self, code_analysis: Dict[str, Any], num_pairs: int) -> List[Dict[str, Any]]:
@@ -288,7 +288,7 @@ reasoning_trace必须遵循以下结构化推理框架：
                 if qa_pair:
                     qa_pairs.append(qa_pair)
             except Exception as e:
-                print(f"⚠️ 为类 {class_info.get('name', 'unknown')} 生成QA时出错: {e}")
+                print(f"为类 {class_info.get('name', 'unknown')} 生成QA时出错: {e}")
                 continue
         
         return qa_pairs
@@ -357,11 +357,11 @@ JSON格式:
                     }
                 }
             except json.JSONDecodeError as e:
-                print(f"⚠️ 类QA的JSON解析错误: {e}")
-                print(f"⚠️ 问题内容: {content[:200] if content else 'None'}")
+                print(f"类QA的JSON解析错误: {e}")
+                print(f"问题内容: {content[:200] if content else 'None'}")
                 return None
         except Exception as e:
-            print(f"⚠️ 为类生成QA失败: {e}")
+            print(f"为类生成QA失败: {e}")
             return None
     
     def _generate_business_rule_qa(self, code_analysis: Dict[str, Any], num_pairs: int) -> List[Dict[str, Any]]:
@@ -375,7 +375,7 @@ JSON格式:
                 if qa_pair:
                     qa_pairs.append(qa_pair)
             except Exception as e:
-                print(f"⚠️ 为业务规则生成QA时出错: {e}")
+                print(f"为业务规则生成QA时出错: {e}")
                 continue
         
         return qa_pairs
@@ -438,11 +438,11 @@ JSON格式:
                     }
                 }
             except json.JSONDecodeError as e:
-                print(f"⚠️ 业务规则QA的JSON解析错误: {e}")
-                print(f"⚠️ 问题内容: {content[:200] if content else 'None'}")
+                print(f"业务规则QA的JSON解析错误: {e}")
+                print(f"问题内容: {content[:200] if content else 'None'}")
                 return None
         except Exception as e:
-            print(f"⚠️ 业务规则QA生成失败: {e}")
+            print(f"业务规则QA生成失败: {e}")
             return None
     
     def _generate_architecture_qa(self, code_analysis: Dict[str, Any], num_pairs: int) -> List[Dict[str, Any]]:
@@ -458,7 +458,7 @@ JSON格式:
                 if qa_pair:
                     qa_pairs.append(qa_pair)
             except Exception as e:
-                print(f"⚠️ 为架构模式 {pattern} 生成QA时出错: {e}")
+                print(f"为架构模式 {pattern} 生成QA时出错: {e}")
                 continue
         
         return qa_pairs
@@ -519,11 +519,11 @@ JSON格式:
                     }
                 }
             except json.JSONDecodeError as e:
-                print(f"⚠️ 架构QA的JSON解析错误: {e}")
-                print(f"⚠️ 问题内容: {content[:200] if content else 'None'}")
+                print(f"架构QA的JSON解析错误: {e}")
+                print(f"问题内容: {content[:200] if content else 'None'}")
                 return None
         except Exception as e:
-            print(f"⚠️ 架构QA生成失败: {e}")
+            print(f"架构QA生成失败: {e}")
             return None
     
     def _validate_reasoning_quality(self, qa_pair: Dict[str, Any]) -> bool:
@@ -611,4 +611,4 @@ JSON格式:
         """保存问答对到文件"""
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(qa_pairs, f, indent=2, ensure_ascii=False)
-        print(f"✅ 问答对已保存到: {output_path}")
+        print(f"问答对已保存到: {output_path}")
