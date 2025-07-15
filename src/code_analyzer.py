@@ -146,7 +146,7 @@ class CodeAnalyzer:
                             result['imports'].append(f"{module}.{alias.name}")
                             
         except SyntaxError as e:
-            print(f"⚠Python语法错误: {e}")
+            print(f"Python语法错误: {e}")
             return result
             
         return result
