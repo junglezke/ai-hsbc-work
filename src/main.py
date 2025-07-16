@@ -25,7 +25,7 @@ class TrainingDataGenerator:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
         # 初始化核心组件
-        print("🤖 初始化Claude AI增强的训练数据生成系统...")
+        print("初始化Claude AI增强的训练数据生成系统...")
         self.analyzer = CodeAnalyzer(str(self.repo_path))
         self.qa_generator = QAGenerator(claude_api_key)
         self.design_generator = DesignGenerator(claude_api_key)
@@ -61,10 +61,10 @@ class TrainingDataGenerator:
         quality_report_path = self._assess_reasoning_quality(qa_output_path, design_output_path)
         
         # Step 6: 生成综合报告
-        print("\n📋 Step 6: 生成综合分析报告...")
+        print("\nStep 6: 生成综合分析报告...")
         report_path = self._generate_comprehensive_report()
         
-        print("\n✅ 训练数据生成完成!")
+        print("\n训练数据生成完成!")
         
         return {
             'analysis_report': str(self.output_dir / 'analysis_report.json'),
@@ -155,14 +155,14 @@ class TrainingDataGenerator:
         
         # 打印质量摘要
         overall_summary = quality_report['overall_summary']
-        print(f"    📊 QA推理质量: {overall_summary['overall_qa_score']:.3f}")
-        print(f"    📊 设计推理质量: {overall_summary['overall_design_score']:.3f}")
-        print(f"    📊 综合推理质量: {overall_summary['combined_score']:.3f}")
+        print(f"    QA推理质量: {overall_summary['overall_qa_score']:.3f}")
+        print(f"    设计推理质量: {overall_summary['overall_design_score']:.3f}")
+        print(f"    综合推理质量: {overall_summary['combined_score']:.3f}")
         
         # 显示质量建议
         recommendations = quality_report.get('recommendations', [])
         if recommendations:
-            print("    💡 质量改进建议:")
+            print("    质量改进建议:")
             for rec in recommendations:
                 print(f"      - {rec}")
         
