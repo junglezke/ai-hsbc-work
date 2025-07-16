@@ -276,4 +276,4 @@ class ReasoningQualityAssessor:
         """保存质量报告"""
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(report, f, indent=2, ensure_ascii=False)
-        print(f"📊 推理质量报告已保存到: {output_path}")
+        print(f"推理质量报告已保存到: {output_path}")
